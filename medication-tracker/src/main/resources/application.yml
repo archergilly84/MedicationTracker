@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: medication-tracker
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: medicationDatabase
+      uri: mongodb://localhost:27017/medicationDatabase
