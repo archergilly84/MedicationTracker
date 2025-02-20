@@ -1,4 +1,4 @@
-package com.medicaion_tracker.reminders;
+package com.medication_tracker.reminders;
 
 import java.time.LocalDateTime;
 import java.util.UUID;

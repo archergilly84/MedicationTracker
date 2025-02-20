@@ -1,4 +1,4 @@
-package com.medicaion_tracker.reminders;
+package com.medication_tracker.reminders;
 
 public enum ReminderType {
     PERSCRIPTION_PICK_UP("Time to pick up your ready medication"),

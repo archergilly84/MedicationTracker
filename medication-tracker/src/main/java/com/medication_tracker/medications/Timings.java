@@ -1,4 +1,4 @@
-package com.medicaion_tracker.medications;
+package com.medication_tracker.medications;
 
 public enum Timings {
     WEEKLY,
