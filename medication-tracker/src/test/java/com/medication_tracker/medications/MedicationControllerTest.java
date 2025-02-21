@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 
@@ -105,10 +106,46 @@ public class MedicationControllerTest {
 
   @Test
   void updateMedication() {
+
+    var id = UUID.randomUUID();
+    var medicationDto = new MedicationDto(
+            null,
+            "Topax",
+            12,
+            "10mg",
+            DAILY
+    );
+
+    var updatedMedicationDto = new MedicationDto(
+            id,
+            "Topax",
+            2,
+            "10mg",
+            DAILY
+    );
+
+    given(medicationService.updateMedication(id, medicationDto))
+            .willReturn(updatedMedicationDto);
+
+    var actual = underTest.updateMedication(id, medicationDto);
+
+    assertThat(actual.getStatusCode()).isEqualTo(HttpStatus.OK);
+    assertThat(actual.getBody()).isEqualTo(updatedMedicationDto);
+
   }
 
   @Test
   void removeMedication() {
+
+    var id = UUID.randomUUID();
+
+    given(medicationService.removeMedication(id)).willReturn(id);
+
+    var actual = underTest.removeMedication(id);
+
+    assertThat(actual.getStatusCode()).isEqualTo(HttpStatus.OK);
+    assertThat(actual.getBody()).isEqualTo(id);
+
   }
 
   @Test

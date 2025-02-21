@@ -50,16 +50,18 @@ public class MedicationController {
   }
 
   @PutMapping(path = "/medication/{medication_id}")
-  public ResponseEntity<?> updateMedication(
+  public ResponseEntity<MedicationDto> updateMedication(
       @PathVariable UUID id,
       @RequestBody MedicationDto medicationDto
   ) {
-    return null;
+    return ResponseEntity.ok()
+            .body(medicationService.updateMedication(id, medicationDto));
   }
 
   @DeleteMapping(path = "/medication/{medication_id}")
-  public ResponseEntity<?> removeMedication(@PathVariable UUID id) {
-    return null;
+  public ResponseEntity<UUID> removeMedication(@PathVariable UUID id) {
+    return ResponseEntity.ok()
+            .body(medicationService.removeMedication(id));
   }
 
   @GetMapping(path = "/reminder")
