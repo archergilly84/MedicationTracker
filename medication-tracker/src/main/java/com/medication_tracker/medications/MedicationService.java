@@ -12,7 +12,7 @@ public class MedicationService {
     return null;
   }
 
-  public List<Medication> getAllMedications() {
+  public List<MedicationDto> getAllMedications() {
     return null;
   }
 

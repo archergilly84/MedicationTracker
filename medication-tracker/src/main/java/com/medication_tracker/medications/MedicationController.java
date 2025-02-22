@@ -1,6 +1,5 @@
 package com.medication_tracker.medications;
 
-import com.medication_tracker.reminders.ReminderDto;
 import java.util.List;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,12 +32,8 @@ public class MedicationController {
 
   @GetMapping(path = "/medication")
   public ResponseEntity<List<MedicationDto>> getMedications() {
-    var medicationDtos = medicationService.getAllMedications()
-        .stream()
-        .map(medicationAssembler::toDto)
-        .toList();
-    return ResponseEntity.ok()
-        .body(medicationDtos);
+    var medicationDtos = medicationService.getAllMedications();
+    return ResponseEntity.ok(medicationDtos);
   }
 
   @PostMapping(path = "/medication")
@@ -54,37 +49,11 @@ public class MedicationController {
       @PathVariable UUID id,
       @RequestBody MedicationDto medicationDto
   ) {
-    return ResponseEntity.ok()
-            .body(medicationService.updateMedication(id, medicationDto));
+    return ResponseEntity.ok(medicationService.updateMedication(id, medicationDto));
   }
 
   @DeleteMapping(path = "/medication/{medication_id}")
   public ResponseEntity<UUID> removeMedication(@PathVariable UUID id) {
-    return ResponseEntity.ok()
-            .body(medicationService.removeMedication(id));
+    return ResponseEntity.ok(medicationService.removeMedication(id));
   }
-
-  @GetMapping(path = "/reminder")
-  public ResponseEntity<?> getReminders() {
-    return null;
-  }
-
-  @PostMapping(path = "/reminder")
-  public ResponseEntity<?> setReminder(@RequestBody ReminderDto reminderDto) {
-    return null;
-  }
-
-  @PutMapping(path = "/reminder/{reminder_id}")
-  public ResponseEntity<?> updateReminder(
-      @PathVariable UUID id,
-      @RequestBody ReminderDto reminderDto
-  ) {
-    return null;
-  }
-
-  @DeleteMapping(path = "/reminder/{reminder_id}")
-  public ResponseEntity<?> removeReminder(@PathVariable UUID id) {
-    return null;
-  }
-
 }
