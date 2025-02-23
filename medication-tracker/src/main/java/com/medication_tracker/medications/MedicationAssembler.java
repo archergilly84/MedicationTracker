@@ -5,4 +5,8 @@ public class MedicationAssembler {
   public MedicationDto toDto(Medication medication) {
     return null;
   }
+
+  public Medication toDomain(MedicationDto medicationDto) {
+    return null;
+  }
 }
