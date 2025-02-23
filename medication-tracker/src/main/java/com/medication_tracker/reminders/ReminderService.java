@@ -7,12 +7,30 @@ import org.springframework.stereotype.Service;
 @Service
 public class ReminderService {
 
-  public List<ReminderDto> getAllReminders() {
-    return null;
+  private final ReminderAssembler reminderAssembler;
+  private final ReminderRepository reminderRepository;
+
+    public ReminderService(
+            ReminderAssembler reminderAssembler,
+            ReminderRepository reminderRepository
+    ) {
+        this.reminderAssembler = reminderAssembler;
+        this.reminderRepository = reminderRepository;
+    }
+
+    public List<ReminderDto> getAllReminders() {
+    return reminderRepository.getAllReminders()
+            .stream()
+            .map(reminderAssembler::toDto)
+            .toList();
   }
 
   public ReminderDto createReminder(ReminderDto reminderDto) {
-    return null;
+    return reminderAssembler.toDto(
+            reminderRepository.createReminder(
+                    reminderAssembler.toDomain(reminderDto)
+            )
+    );
   }
 
   public ReminderDto updateReminder(
