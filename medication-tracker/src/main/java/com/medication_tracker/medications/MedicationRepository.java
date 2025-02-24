@@ -7,8 +7,23 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class MedicationRepository {
 
+  private final MedicationDao medicationDao;
+  private final MedicationAssembler medicationAssembler;
+
+  public MedicationRepository(
+      MedicationDao medicationDao,
+      MedicationAssembler medicationAssembler
+  ) {
+    this.medicationDao = medicationDao;
+    this.medicationAssembler = medicationAssembler;
+  }
+
   public Medication saveMedication(Medication medication) {
-    return null;
+    return medicationAssembler.fromPo(
+        medicationDao.save(
+            medicationAssembler.toPo(medication)
+        )
+    );
   }
 
   public List<Medication> getAllMedications() {
