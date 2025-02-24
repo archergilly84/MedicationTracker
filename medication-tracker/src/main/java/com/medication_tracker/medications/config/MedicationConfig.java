@@ -1,6 +1,7 @@
 package com.medication_tracker.medications.config;
 
 import com.medication_tracker.medications.MedicationAssembler;
+import com.medication_tracker.medications.MedicationDao;
 import com.medication_tracker.medications.MedicationRepository;
 import com.medication_tracker.medications.MedicationService;
 import org.springframework.context.annotation.Bean;
@@ -21,6 +22,11 @@ public class MedicationConfig {
 
   @Bean
   public MedicationRepository medicationRepository() {
-    return new MedicationRepository();
+    return new MedicationRepository(medicationDao(), medicationAssembler());
+  }
+
+  @Bean
+  public MedicationDao medicationDao() {
+    return new MedicationDao();
   }
 }
