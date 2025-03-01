@@ -7,9 +7,12 @@ import static org.mockito.Mockito.mock;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.NullSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -109,13 +112,20 @@ public class MedicationServiceTest {
     var actual = underTest.updateMedication(ID, medicationDto);
 
     assertThat(actual).isEqualTo(updatedMedicationDto);
+  }
 
+  public static Stream<Arguments> nullArguments() {
+    return Stream.of(
+        Arguments.of(null, mock(MedicationDto.class)),
+        Arguments.of(null, null),
+        Arguments.of(ID, null)
+    );
   }
 
   @ParameterizedTest
-  @NullSource
-  void updateMedication_handlesNull(MedicationDto medicationDto) {
-    assertThat(underTest.updateMedication(ID, medicationDto))
+  @MethodSource("nullArguments")
+  void updateMedication_handlesNull(UUID id, MedicationDto medicationDto) {
+    assertThat(underTest.updateMedication(id, medicationDto))
         .isNull();
   }
 
