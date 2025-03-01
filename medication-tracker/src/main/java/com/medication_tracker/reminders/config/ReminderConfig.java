@@ -1,6 +1,7 @@
 package com.medication_tracker.reminders.config;
 
 import com.medication_tracker.reminders.ReminderAssembler;
+import com.medication_tracker.reminders.ReminderDao;
 import com.medication_tracker.reminders.ReminderRepository;
 import com.medication_tracker.reminders.ReminderService;
 import org.springframework.context.annotation.Bean;
@@ -24,7 +25,12 @@ public class ReminderConfig {
 
   @Bean
   public ReminderRepository reminderRepository() {
-    return new ReminderRepository();
+    return new ReminderRepository(reminderAssembler(), reminderDao());
+  }
+
+  @Bean
+  public ReminderDao reminderDao() {
+    return new ReminderDao();
   }
 
 }
